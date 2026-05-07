@@ -102,9 +102,13 @@ int main(int argc, char **argv)
 	#ifdef DEBUG
 	printSystem(stdout);
 	#endif
+	initDeviceMemory();
 	for (t_now=0;t_now<DURATION;t_now+=INTERVAL){
+		copyHostToDevice();
 		compute();
+		copyDeviceToHost();
 	}
+	freeDeviceMemory();
 	clock_t t1=clock()-t0;
 #ifdef DEBUG
 	printSystem(stdout);
